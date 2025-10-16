@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { LoanForm } from '@/features/loan-application';
 import { useUserStore } from '@/entities/user';
-import { Button, InstallPrompt, MobileNav, MobileHeader } from '@/shared/ui';
+import { InstallPrompt, MobileNav, MobileHeader, DesktopHeader } from '@/shared/ui';
 import { ROUTES } from '@/shared/config/constants';
 
 export default function LoanPage() {
@@ -40,29 +40,7 @@ export default function LoanPage() {
         <MobileHeader title="Новый займ" />
 
         {/* Desktop Header */}
-        <header className="hidden md:block bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Оформление займа
-              </h1>
-              <div className="flex gap-3">
-                <Button variant="ghost" onClick={() => router.push('/dashboard')}>
-                  Главная
-                </Button>
-                <Button variant="ghost" onClick={() => router.push('/history')}>
-                  История
-                </Button>
-                <Button variant="ghost" onClick={() => router.push('/profile')}>
-                  Профиль
-                </Button>
-                <Button variant="ghost" onClick={handleLogout}>
-                  Выйти
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
+        <DesktopHeader title="Оформление займа" />
 
         {/* Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-14 md:mt-0">

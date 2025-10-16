@@ -25,6 +25,7 @@ export { InstallPrompt } from './InstallPrompt/InstallPrompt';
 export { InstallInstructions } from './InstallInstructions/InstallInstructions';
 export { MobileNav } from './MobileNav/MobileNav';
 export { MobileHeader } from './MobileHeader/MobileHeader';
+export { DesktopHeader } from './DesktopHeader/DesktopHeader';
 export { FloatingActionButton } from './FloatingActionButton/FloatingActionButton';
 export { Toast, InstallToast } from './Toast/Toast';
 

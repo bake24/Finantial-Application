@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { Dashboard } from '@/widgets/Dashboard';
 import { useUserStore } from '@/entities/user';
 import { useLoanStore } from '@/entities/loan';
-import { Button, BTCPrice, InstallPrompt, MobileNav, MobileHeader, FloatingActionButton, InstallToast } from '@/shared/ui';
+import { Button, BTCPrice, InstallPrompt, MobileNav, MobileHeader, DesktopHeader, FloatingActionButton, InstallToast } from '@/shared/ui';
 import { ROUTES } from '@/shared/config/constants';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -114,35 +114,7 @@ export default function DashboardPage() {
         <MobileHeader title="Личный кабинет" onInstallClick={handleInstall} />
 
         {/* Desktop Header */}
-        <header className="hidden md:block bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  Личный кабинет
-                </h1>
-                {user && (
-                  <p className="text-sm text-gray-600 mt-1">
-                    Добро пожаловать, {user.username}
-                  </p>
-                )}
-              </div>
-              <div className="flex gap-3">
-                <Button variant="ghost" onClick={() => router.push('/history')}>
-                  История
-                </Button>
-                <Button variant="ghost" onClick={() => router.push('/profile')}>
-                  Профиль
-                </Button>
-                <InstallPrompt variant="button" showOnDesktop={false} />
-                <Button onClick={handleNewLoan}>Новый займ</Button>
-                <Button variant="ghost" onClick={handleLogout}>
-                  Выйти
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
+        <DesktopHeader title="Личный кабинет" />
 
         {/* Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-14 md:mt-0">
