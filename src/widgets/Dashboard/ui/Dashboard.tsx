@@ -26,7 +26,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ loan, onLoanUpdate }) => {
   const schedule = calculatePaymentSchedule(
     loan.amount,
     loan.term,
-    loan.startDate
+    typeof loan.startDate === 'string' ? new Date(loan.startDate) : loan.startDate
   );
 
   const totalPaid = loan.amount - loan.remainingBalance;

@@ -34,7 +34,7 @@ export const LoanDetails: React.FC<LoanDetailsProps> = ({ loan, onLoanUpdate }) 
   const schedule = calculatePaymentSchedule(
     loan.amount,
     loan.term,
-    loan.startDate
+    typeof loan.startDate === 'string' ? new Date(loan.startDate) : loan.startDate
   );
 
   // Рассчитываем прогресс
