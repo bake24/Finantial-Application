@@ -1,0 +1,47 @@
+# Placeholder для PWA иконок
+
+Эта директория должна содержать иконки PWA разных размеров.
+
+## Требуемые иконки:
+
+### Основные (обязательно):
+- icon-192x192.png (Android, основная)
+- icon-512x512.png (Android, splash screen)
+
+### Дополнительные (рекомендуется):
+- icon-72x72.png
+- icon-96x96.png
+- icon-128x128.png
+- icon-144x144.png (Windows tiles)
+- icon-152x152.png (iOS/iPad)
+- icon-180x180.png (iOS Retina)
+- icon-384x384.png
+
+### iOS Splash Screens (опционально):
+- splash-640x1136.png (iPhone 5/SE)
+- splash-750x1334.png (iPhone 6/7/8)
+- splash-1242x2208.png (iPhone 6+/7+/8+)
+- splash-1125x2436.png (iPhone X/XS)
+- splash-1242x2688.png (iPhone XS Max)
+
+## Генерация placeholder иконок:
+
+```bash
+npm run generate-icons
+```
+
+Это создаст SVG файлы для тестирования.
+
+## Production иконки:
+
+Для production используйте:
+1. https://realfavicongenerator.net/
+2. https://www.pwabuilder.com/imageGenerator
+3. Или создайте вручную с дизайнером
+
+Требования:
+- Формат: PNG с прозрачностью
+- Квадратные
+- Высокое качество (без пикселизации)
+- Тематика: Bitcoin + займы
+- Цвета: Bitcoin orange (#f7931a) + белый
