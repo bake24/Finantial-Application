@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Card, MobileNav, MobileHeader } from '@/shared/ui';
+import { Card, MobileNav, MobileHeader, Button } from '@/shared/ui';
 import { useUserStore } from '@/entities/user';
 import { usePaymentStore } from '@/entities/payment';
 import { ROUTES } from '@/shared/config/constants';
@@ -13,7 +13,7 @@ import { formatBTC, formatDate } from '@/shared/lib/utils/format';
 
 export default function HistoryPage() {
   const router = useRouter();
-  const { isAuthenticated } = useUserStore();
+  const { isAuthenticated, logout } = useUserStore();
   const getPaymentHistory = usePaymentStore((state) => state.getPaymentHistory);
 
   useEffect(() => {
@@ -21,6 +21,11 @@ export default function HistoryPage() {
       router.replace(ROUTES.LOGIN);
     }
   }, [isAuthenticated, router]);
+
+  const handleLogout = () => {
+    logout();
+    router.push(ROUTES.LOGIN);
+  };
 
   if (!isAuthenticated) {
     return null;
@@ -67,7 +72,23 @@ export default function HistoryPage() {
         {/* Desktop Header */}
         <header className="hidden md:block bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <h1 className="text-2xl font-bold text-gray-900">История платежей</h1>
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-gray-900">История платежей</h1>
+              <div className="flex gap-3">
+                <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+                  Главная
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/loan')}>
+                  Новый займ
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/profile')}>
+                  Профиль
+                </Button>
+                <Button variant="ghost" onClick={handleLogout}>
+                  Выйти
+                </Button>
+              </div>
+            </div>
           </div>
         </header>
 

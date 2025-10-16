@@ -11,13 +11,19 @@ import Head from 'next/head';
 import { useLoanStore } from '@/entities/loan';
 import { useUserStore } from '@/entities/user';
 import { LoanDetails } from '@/widgets/LoanDetails';
+import { Button, MobileNav, MobileHeader } from '@/shared/ui';
 
 export default function LoanDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
   const { currentLoan, getLoanById, setCurrentLoan, isLoading, setLoading } = useLoanStore();
-  const user = useUserStore((state) => state.user);
+  const { user, logout } = useUserStore();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   useEffect(() => {
     // Проверка авторизации
@@ -88,8 +94,43 @@ export default function LoanDetailsPage() {
         <meta name="description" content={`Детали займа на ${currentLoan.amount} BTC`} />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        <LoanDetails loan={currentLoan} onLoanUpdate={handleLoanUpdate} />
+      <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
+        {/* Mobile Header */}
+        <MobileHeader title="Детали займа" />
+
+        {/* Desktop Header */}
+        <header className="hidden md:block bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-gray-900">Детали займа</h1>
+              <div className="flex gap-3">
+                <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+                  Главная
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/loan')}>
+                  Новый займ
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/history')}>
+                  История
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/profile')}>
+                  Профиль
+                </Button>
+                <Button variant="ghost" onClick={handleLogout}>
+                  Выйти
+                </Button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div className="mt-14 md:mt-0">
+          <LoanDetails loan={currentLoan} onLoanUpdate={handleLoanUpdate} />
+        </div>
+
+        {/* Mobile Navigation */}
+        <MobileNav />
       </div>
     </>
   );

@@ -44,9 +44,20 @@ export default function ProfilePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-gray-900">Профиль</h1>
-              <Button variant="ghost" onClick={handleLogout}>
-                Выйти
-              </Button>
+              <div className="flex gap-3">
+                <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+                  Главная
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/loan')}>
+                  Новый займ
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/history')}>
+                  История
+                </Button>
+                <Button variant="ghost" onClick={handleLogout}>
+                  Выйти
+                </Button>
+              </div>
             </div>
           </div>
         </header>

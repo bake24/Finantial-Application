@@ -128,6 +128,12 @@ export default function DashboardPage() {
                 )}
               </div>
               <div className="flex gap-3">
+                <Button variant="ghost" onClick={() => router.push('/history')}>
+                  История
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/profile')}>
+                  Профиль
+                </Button>
                 <InstallPrompt variant="button" showOnDesktop={false} />
                 <Button onClick={handleNewLoan}>Новый займ</Button>
                 <Button variant="ghost" onClick={handleLogout}>

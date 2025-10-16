@@ -46,9 +46,20 @@ export default function LoanPage() {
               <h1 className="text-2xl font-bold text-gray-900">
                 Оформление займа
               </h1>
-              <Button variant="ghost" onClick={handleLogout}>
-                Выйти
-              </Button>
+              <div className="flex gap-3">
+                <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+                  Главная
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/history')}>
+                  История
+                </Button>
+                <Button variant="ghost" onClick={() => router.push('/profile')}>
+                  Профиль
+                </Button>
+                <Button variant="ghost" onClick={handleLogout}>
+                  Выйти
+                </Button>
+              </div>
             </div>
           </div>
         </header>
