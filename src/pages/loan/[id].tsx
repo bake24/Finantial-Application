@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useLoanStore } from '@/entities/loan';
 import { useUserStore } from '@/entities/user';
+import { usePWAInstall } from '@/shared/lib/hooks';
 import { LoanDetails } from '@/widgets/LoanDetails';
 import { MobileNav, MobileHeader, DesktopHeader } from '@/shared/ui';
 
@@ -19,6 +20,7 @@ export default function LoanDetailsPage() {
 
   const { currentLoan, getLoanById, setCurrentLoan, isLoading, setLoading } = useLoanStore();
   const { user, logout } = useUserStore();
+  const { handleInstall } = usePWAInstall();
 
   const handleLogout = () => {
     logout();
@@ -96,7 +98,7 @@ export default function LoanDetailsPage() {
 
       <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
         {/* Mobile Header */}
-        <MobileHeader title="Детали займа" />
+        <MobileHeader title="Детали займа" onInstallClick={handleInstall} />
 
         {/* Desktop Header */}
         <DesktopHeader title="Детали займа" />

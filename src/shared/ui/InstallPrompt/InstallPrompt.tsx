@@ -43,6 +43,9 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
       const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
       setIsIOS(isIOSDevice);
 
+      // Проверка Android
+      const isAndroid = /Android/.test(navigator.userAgent);
+
       // Проверка, установлено ли PWA
       if (isStandaloneMode || (window.navigator as any).standalone) {
         setIsInstalled(true);
@@ -50,7 +53,13 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
         return;
       }
 
-      console.log('[PWA Install] Приложение не установлено, iOS:', isIOSDevice);
+      // Показываем prompt для iOS и Android сразу
+      if (isIOSDevice || isAndroid) {
+        console.log('[PWA Install] Показываем prompt для', isIOSDevice ? 'iOS' : 'Android');
+        setShowPrompt(true);
+      }
+
+      console.log('[PWA Install] Приложение не установлено, iOS:', isIOSDevice, 'Android:', isAndroid);
     };
 
     checkInstalled();
@@ -106,9 +115,16 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
     } else if (isIOS) {
       // iOS Safari - показываем инструкции
       console.log('[PWA Install] Показываем iOS инструкции');
-      alert('Для установки на iOS:\n1. Нажмите кнопку "Поделиться" (📤) внизу экрана\n2. Выберите "На экран Домой"\n3. Нажмите "Добавить"');
+      alert('Для установки на iOS:\n\n1. Нажмите кнопку "Поделиться" (📤) внизу экрана\n2. Прокрутите вниз и выберите "На экран Домой"\n3. Нажмите "Добавить"');
     } else {
-      console.log('[PWA Install] Prompt не доступен. Проверьте что сайт открыт через HTTPS и manifest.json загружен');
+      // Android без события beforeinstallprompt
+      const isAndroid = /Android/.test(navigator.userAgent);
+      if (isAndroid) {
+        console.log('[PWA Install] Показываем Android инструкции (без prompt)');
+        alert('Для установки приложения:\n\n1. Нажмите ⋮ (три точки) в правом верхнем углу\n2. Выберите "Установить приложение" или "Добавить на главный экран"\n3. Подтвердите установку');
+      } else {
+        console.log('[PWA Install] Prompt не доступен. Проверьте что сайт открыт через HTTPS');
+      }
     }
   };
 

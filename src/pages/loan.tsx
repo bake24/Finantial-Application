@@ -7,12 +7,14 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { LoanForm } from '@/features/loan-application';
 import { useUserStore } from '@/entities/user';
+import { usePWAInstall } from '@/shared/lib/hooks';
 import { InstallPrompt, MobileNav, MobileHeader, DesktopHeader } from '@/shared/ui';
 import { ROUTES } from '@/shared/config/constants';
 
 export default function LoanPage() {
   const router = useRouter();
   const { isAuthenticated, logout } = useUserStore();
+  const { handleInstall } = usePWAInstall();
 
   useEffect(() => {
     // Проверка авторизации
@@ -37,7 +39,7 @@ export default function LoanPage() {
       </Head>
       <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
         {/* Mobile Header */}
-        <MobileHeader title="Новый займ" />
+        <MobileHeader title="Новый займ" onInstallClick={handleInstall} />
 
         {/* Desktop Header */}
         <DesktopHeader title="Оформление займа" />

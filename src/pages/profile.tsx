@@ -7,12 +7,14 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Button, Card, MobileNav, MobileHeader, DesktopHeader } from '@/shared/ui';
 import { useUserStore } from '@/entities/user';
+import { usePWAInstall } from '@/shared/lib/hooks';
 import { ROUTES } from '@/shared/config/constants';
 import { formatDate } from '@/shared/lib/utils/format';
 
 export default function ProfilePage() {
   const router = useRouter();
   const { isAuthenticated, user, logout } = useUserStore();
+  const { handleInstall } = usePWAInstall();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -37,7 +39,7 @@ export default function ProfilePage() {
 
       <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
         {/* Mobile Header */}
-        <MobileHeader title="Профиль" />
+        <MobileHeader title="Профиль" onInstallClick={handleInstall} />
 
         {/* Desktop Header */}
         <DesktopHeader title="Профиль" />

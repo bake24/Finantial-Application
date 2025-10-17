@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { Card, MobileNav, MobileHeader, DesktopHeader } from '@/shared/ui';
 import { useUserStore } from '@/entities/user';
 import { usePaymentStore } from '@/entities/payment';
+import { usePWAInstall } from '@/shared/lib/hooks';
 import { ROUTES } from '@/shared/config/constants';
 import { formatBTC, formatDate } from '@/shared/lib/utils/format';
 
@@ -15,6 +16,7 @@ export default function HistoryPage() {
   const router = useRouter();
   const { isAuthenticated, logout } = useUserStore();
   const getPaymentHistory = usePaymentStore((state) => state.getPaymentHistory);
+  const { handleInstall } = usePWAInstall();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -67,7 +69,7 @@ export default function HistoryPage() {
 
       <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
         {/* Mobile Header */}
-        <MobileHeader title="История" />
+        <MobileHeader title="История" onInstallClick={handleInstall} />
 
         {/* Desktop Header */}
         <DesktopHeader title="История платежей" />
