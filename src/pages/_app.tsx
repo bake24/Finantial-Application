@@ -12,7 +12,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useUserStore } from '@/entities/user';
 import { getSavedUser } from '@/features/auth';
-import { UpdatePrompt } from '@/shared/ui';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -39,26 +38,6 @@ export default function App({ Component, pageProps }: AppProps) {
           .register('/sw.js', { scope: '/' })
           .then((registration) => {
             console.log('✅ Service Worker зарегистрирован:', registration);
-
-            // Обработка обновлений Service Worker
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
-              if (newWorker) {
-                newWorker.addEventListener('statechange', () => {
-                  if (
-                    newWorker.state === 'installed' &&
-                    navigator.serviceWorker.controller
-                  ) {
-                    // Новая версия доступна
-                    console.log('🔄 Доступна новая версия приложения');
-                    // Можно показать пользователю уведомление об обновлении
-                    // if (confirm('Доступна новая версия. Обновить?')) {
-                    //   window.location.reload();
-                    // }
-                  }
-                });
-              }
-            });
           })
           .catch((error) => {
             console.error('❌ Ошибка регистрации Service Worker:', error);
@@ -76,9 +55,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </Head>
       <Component {...pageProps} />
-      
-      {/* Уведомление об обновлении PWA */}
-      <UpdatePrompt />
     </>
   );
 }
