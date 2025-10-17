@@ -46,17 +46,18 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
       // Проверка, установлено ли PWA
       if (isStandaloneMode || (window.navigator as any).standalone) {
         setIsInstalled(true);
+        console.log('[PWA Install] Приложение уже установлено');
         return;
       }
 
-      // Показываем prompt только если не установлено
-      setShowPrompt(!isInstalled);
+      console.log('[PWA Install] Приложение не установлено, iOS:', isIOSDevice);
     };
 
     checkInstalled();
 
     // Обработчик beforeinstallprompt (Android Chrome)
     const handleBeforeInstallPrompt = (e: Event) => {
+      console.log('[PWA Install] beforeinstallprompt событие получено');
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setShowPrompt(true);
@@ -64,6 +65,7 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
 
     // Обработчик установки
     const handleAppInstalled = () => {
+      console.log('[PWA Install] Приложение установлено!');
       setIsInstalled(true);
       setShowPrompt(false);
       setDeferredPrompt(null);
@@ -79,23 +81,34 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({
   }, []);
 
   const handleInstallClick = async () => {
+    console.log('[PWA Install] Кнопка установки нажата');
+    console.log('[PWA Install] deferredPrompt:', !!deferredPrompt, 'isIOS:', isIOS);
+    
     if (deferredPrompt) {
       // Android Chrome - показываем встроенный prompt
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === 'accepted') {
-        console.log('PWA установлено пользователем');
+      console.log('[PWA Install] Показываем Android prompt');
+      try {
+        await deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('[PWA Install] Выбор пользователя:', outcome);
+        
+        if (outcome === 'accepted') {
+          console.log('[PWA Install] Пользователь принял установку');
+        } else {
+          console.log('[PWA Install] Пользователь отклонил установку');
+        }
+        
+        setDeferredPrompt(null);
+        setShowPrompt(false);
+      } catch (error) {
+        console.error('[PWA Install] Ошибка при установке:', error);
       }
-      
-      setDeferredPrompt(null);
-      setShowPrompt(false);
     } else if (isIOS) {
       // iOS Safari - показываем инструкции
-      // Импортируем InstallInstructions динамически
-      const { InstallInstructions } = await import('../InstallInstructions/InstallInstructions');
-      // Здесь можно показать модальное окно с инструкциями
-      alert('Для установки на iOS:\n1. Нажмите кнопку "Поделиться" внизу экрана\n2. Выберите "На экран Домой"\n3. Нажмите "Добавить"');
+      console.log('[PWA Install] Показываем iOS инструкции');
+      alert('Для установки на iOS:\n1. Нажмите кнопку "Поделиться" (📤) внизу экрана\n2. Выберите "На экран Домой"\n3. Нажмите "Добавить"');
+    } else {
+      console.log('[PWA Install] Prompt не доступен. Проверьте что сайт открыт через HTTPS и manifest.json загружен');
     }
   };
 
