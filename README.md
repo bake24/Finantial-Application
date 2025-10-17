@@ -1,72 +1,119 @@
 # Bitcoin Loan App
 
-Progressive Web Application for Bitcoin loans with modern UI and offline support.
+PWA-приложение для получения и управления займами в Bitcoin.
 
-## Features
-
-- 💰 Bitcoin loan application (up to 1 BTC, up to 24 months)
-- 📊 Payment schedule with detailed breakdown
-- 📈 Real-time Bitcoin price (CoinGecko API)
-- 💳 Early repayment options
-- 📱 PWA support with offline mode
-- 🎨 Responsive design (mobile-first)
-
-## Quick Start
+## 🚀 Быстрый старт
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Откройте [http://localhost:3000](http://localhost:3000)
 
-### Demo Credentials
-- **Username**: `demo`
-- **Password**: `demo123`
+## 🔑 Вход в систему
 
-## Tech Stack
+**Демо-аккаунт:**
+- Логин: `demo`
+- Пароль: `demo123`
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Zustand (state management)
-- Recharts (charts)
-- next-pwa (PWA support)
+## 📱 Основные функции
 
-## Scripts
+### Авторизация
+- **Страница:** `/login`
+- Вход без регистрации
+- Сохранение сессии (JWT в localStorage)
 
-```bash
-npm run dev          # Development server
-npm run build        # Production build
-npm start            # Run production
-npm run lint         # ESLint check
-npm run type-check   # TypeScript check
-```
+### Оформление займа
+- **Страница:** `/loan`
+- Сумма: до 1 BTC
+- Срок: до 24 месяцев
+- Автоматический расчет платежей
 
-## Project Structure
+### Личный кабинет
+- **Страница:** `/dashboard`
+- Информация о займе
+- График платежей с визуализацией
+- Текущий курс BTC (CoinGecko API)
+- Досрочное/частичное погашение
+
+### История платежей
+- **Страница:** `/history`
+- Все завершенные платежи
+- Детальная информация по каждому платежу
+
+### Профиль
+- **Страница:** `/profile`
+- Информация о пользователе
+- Настройки аккаунта
+
+## 🛠 Технологии
+
+- **Frontend:** Next.js 14, React, TypeScript
+- **Стилизация:** Tailwind CSS
+- **Состояние:** Zustand
+- **Графики:** Recharts
+- **PWA:** next-pwa, Service Worker
+- **API:** CoinGecko (курс BTC)
+
+## 📦 Структура проекта
 
 ```
 src/
-├── pages/           # Next.js pages
-├── widgets/         # Complex UI blocks
-├── features/        # Business features
-├── entities/        # Business entities
-└── shared/          # Shared code
-    ├── ui/          # UI components
-    ├── lib/         # Utils and helpers
-    └── config/      # Configuration
+├── pages/          # Next.js страницы и API routes
+├── features/       # Функциональные модули (auth, loan, repayment)
+├── entities/       # Бизнес-сущности (user, loan, payment)
+├── widgets/        # Сложные UI-блоки (Dashboard, LoanDetails)
+└── shared/         # Общие компоненты, утилиты, хуки
 ```
 
-## Deployment
+## 🌐 PWA Установка
 
-Deploy to Vercel (recommended):
+### Android
+1. Откройте приложение в Chrome
+2. Нажмите ☰ (бургер-меню) → "Установить приложение"
+3. Или через меню браузера: ⋮ → "Установить приложение"
 
-1. Push to GitHub
-2. Import on [vercel.com](https://vercel.com)
-3. Deploy
+### iOS
+1. Откройте приложение в Safari
+2. Нажмите Поделиться (📤)
+3. Выберите "На экран Домой"
 
-Or use: Netlify, Railway, Render
+**⚠️ Важно:** PWA работает только на HTTPS (deployed версия)
 
-## License
+## 🚀 Деплой
 
-MIT
+```bash
+# Production build
+npm run build
+
+# Деплой на Vercel
+vercel
+```
+
+## 📄 API Routes
+
+- `POST /api/auth` - Авторизация
+- `GET /api/loans` - Список займов
+- `POST /api/loans` - Создать займ
+- `POST /api/repayment` - Погашение займа
+
+## 🔧 Команды
+
+```bash
+npm run dev          # Запуск dev сервера
+npm run build        # Production сборка
+npm run start        # Запуск production
+npm run lint         # ESLint проверка
+```
+
+## 📱 Адаптивность
+
+- Мобильная навигация (bottom bar)
+- Бургер-меню с установкой PWA
+- Responsive дизайн для всех экранов
+- Минимальная ширина: 320px
+
+---
+
+**Deployed:** https://crypto-application.vercel.app
